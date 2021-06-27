@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FancyUi</string>
+    <string name="hint">Rao sab</string>
+    <string name="save">Save</string>
+    <string name="New">New</string>
+    <string name="list">List</string>
 </resources>

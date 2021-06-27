@@ -16,13 +16,16 @@ public class MainActivity extends AppCompatActivity
     ArrayList<Note> notes;
     Note currentNote;
     EditText textArea;
+
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         textArea = (EditText) findViewById(R.id.text_area);
         notes = new ArrayList<Note>();
     }
+
     private void saveNote(){
         String content = textArea.getText().toString();
         if(!content.isEmpty()) {
