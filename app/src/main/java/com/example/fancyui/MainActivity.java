@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         super.onSaveInstanceState(savedInstanceState);
         try{
             savedInstanceState.putSerializable("listNotes",notes);
+            savedInstanceState.putSerializable("currentNote",currentNote);
         }
         catch(Exception ex){ }
     }
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         super.onRestoreInstanceState(savedInstanceState);
         try{
             notes = (ArrayList<Note>) savedInstanceState.getSerializable("listNotes");
+            currentNote = (Note) savedInstanceState.getSerializable("currentNote");
         }
         catch(Exception ex){ }
     }
