@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,14 +40,19 @@ public class NoteListAdapter extends ArrayAdapter<Note> {
         Log.i(TAG, "created text: " + note.getContent());
 
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(layout, parent, false);
+//            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            view = inflater.inflate(layout, parent, false);
+
+            view = getItemView();
         }
+
+        TextView text = (TextView) view.findViewById(R.id.note_list_item_text);
+        text.setText(note.getContent());
+
         Button button = (Button) view.findViewById(R.id.note_list_item_button);
         button.setText("" + position);
         button.setTag(position);
-        TextView text = (TextView) view.findViewById(R.id.note_list_item_text);
-        text.setText(note.getContent());
+
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -57,6 +64,25 @@ public class NoteListAdapter extends ArrayAdapter<Note> {
         });
         return view;
     }
+
+    private LinearLayout getItemView() {
+        LinearLayout layout = new LinearLayout(getContext());
+        layout.setLayoutParams(new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+
+        TextView text = new TextView(getContext());
+        text.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT,1f));
+        text.setId(R.id.note_list_item_text);
+
+        Button button = new Button(getContext());
+        button.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+        button.setId(R.id.note_list_item_button);
+
+        layout.addView(text);
+        layout.addView(button);
+        return layout;
+    }
+
 
     //todo ctl alt l all files
 }
