@@ -2,12 +2,13 @@ package com.example.fancyui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
-import android.app.Activity;
+
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity
 
         textArea = (EditText) findViewById(R.id.text_area);
         notes = new ArrayList<Note>();
+        notes.add(new Note("Assalamo Alaikum"));
+        notes.add(new Note("Kya hal hai brother"));
     }
 
     private void saveNote(){
@@ -41,15 +44,18 @@ public class MainActivity extends AppCompatActivity
         textArea.setText("");
         currentNote = null;
     }
-    private void listNotes(){
+    private void listNotes() {
+        newNote();
         String text = "Total " + notes.size() + " notes";
-        Log.i("TAG99", "list notes "+text);
-        for(int i=0;i<notes.size();i++)
-        {
-            Log.i("TAG99", "saveNote: "+notes.get(i).getContent());
+        Log.i("TAG99", "list notes " + text);
+        for (int i = 0; i < notes.size(); i++) {
+            Log.i("TAG99", "saveNote: " + notes.get(i).getContent());
         }
-        Toast toast = Toast.makeText(this,text,Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
+        Intent intent = new Intent(this, ListActivity.class);
+        intent.putExtra("list", notes);
+        startActivity(intent);
     }
     public void buttonClick(View v){
         if(v.getId() == R.id.button_save){
