@@ -12,19 +12,19 @@ import java.util.ArrayList;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     ArrayList<Note> notes;
     Note currentNote;
     EditText textArea;
-    String TAG="TAG99";
+    String TAG = "TAG99";
+    int selectedItem = 0;
     final int REQUEST_CODE = 1;
-    public void onCreate(Bundle savedInstanceState)
-    {
+
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textArea = (EditText) findViewById(R.id.text_area);
+        textArea = findViewById(R.id.text_area);
         notes = new ArrayList<Note>();
         notes.add(new Note("Assalamo Alaikum"));
         notes.add(new Note("1"));
@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity
         notes.add(new Note("17"));
     }
 
-    private void saveNote(){
+    private void saveNote() {
         String content = textArea.getText().toString();
-        if(!content.isEmpty()) {
+        if (!content.isEmpty()) {
             if (currentNote == null) {
                 currentNote = new Note(content);
                 notes.add(currentNote);
@@ -56,19 +56,34 @@ public class MainActivity extends AppCompatActivity
             currentNote.setContent(content);
         }
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE){
-            if(resultCode == RESULT_OK){
-                notes = (ArrayList<Note>) data.getSerializableExtra("list");
-            }
+//        if (requestCode == REQUEST_CODE) {
+        if (resultCode == RESULT_OK) {
+            notes = (ArrayList<Note>) data.getSerializableExtra("notes");
+            selectedItem = (int) data.getSerializableExtra("selectedItem");
+            Log.i(TAG, "onActivityResult: " + selectedItem);
+            showItemOnUi(selectedItem);
+        } else {
+            Log.i(TAG, "onActivityResult: ERROR");
         }
+//        }
     }
-    private void newNote(){
+
+    private void showItemOnUi(int selectedItem) {
+
+        Note n = notes.get(selectedItem);
+        textArea.setText(n.getContent());
+        currentNote = n;
+    }
+
+    private void newNote() {
         saveNote();
         textArea.setText("");
         currentNote = null;
     }
+
     private void listNotes() {
         newNote();
         String text = "Total " + notes.size() + " notes";
@@ -79,36 +94,37 @@ public class MainActivity extends AppCompatActivity
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
         Intent intent = new Intent(this, ListActivity.class);
-        intent.putExtra("list", notes);
-        startActivityForResult(intent,REQUEST_CODE);
+        intent.putExtra("notes", notes);
+        startActivityForResult(intent, REQUEST_CODE);
     }
-    public void buttonClick(View v){
-        if(v.getId() == R.id.button_save){
+
+    public void buttonClick(View v) {
+        if (v.getId() == R.id.button_save) {
             saveNote();
-        } else if(v.getId() == R.id.button_new){
+        } else if (v.getId() == R.id.button_new) {
             newNote();
-        } else if(v.getId() == R.id.button_list){
+        } else if (v.getId() == R.id.button_list) {
             listNotes();
         }
     }
-    public void onSaveInstanceState(Bundle savedInstanceState)
-    {
+
+    public void onSaveInstanceState(Bundle savedInstanceState) {
         Log.i(TAG, "onSaveInstanceState: ");
         super.onSaveInstanceState(savedInstanceState);
-        try{
-            savedInstanceState.putSerializable("listNotes",notes);
-            savedInstanceState.putSerializable("currentNote",currentNote);
+        try {
+            savedInstanceState.putSerializable("listNotes", notes);
+            savedInstanceState.putSerializable("currentNote", currentNote);
+        } catch (Exception ex) {
         }
-        catch(Exception ex){ }
     }
-    public void onRestoreInstanceState(Bundle savedInstanceState)
-    {
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
         Log.i(TAG, "onRestoreInstanceState: ");
         super.onRestoreInstanceState(savedInstanceState);
-        try{
+        try {
             notes = (ArrayList<Note>) savedInstanceState.getSerializable("listNotes");
             currentNote = (Note) savedInstanceState.getSerializable("currentNote");
+        } catch (Exception ex) {
         }
-        catch(Exception ex){ }
     }
 }

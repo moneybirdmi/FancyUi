@@ -11,11 +11,13 @@
         android:layout_weight="1"
         android:text="@string/aoa"
         android:textSize="20dp"
+        android:focusable="false"
         />
     <Button
         android:id="@+id/note_list_item_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete"
+        android:focusable="false"
         />
 </LinearLayout>
