@@ -26,7 +26,23 @@ public class MainActivity extends AppCompatActivity
         textArea = (EditText) findViewById(R.id.text_area);
         notes = new ArrayList<Note>();
         notes.add(new Note("Assalamo Alaikum"));
-        notes.add(new Note("Kya hal hai brother"));
+        notes.add(new Note("1"));
+        notes.add(new Note("2"));
+        notes.add(new Note("3"));
+        notes.add(new Note("4"));
+        notes.add(new Note("5"));
+        notes.add(new Note("6"));
+        notes.add(new Note("7"));
+        notes.add(new Note("8"));
+        notes.add(new Note("9"));
+        notes.add(new Note("10"));
+        notes.add(new Note("11"));
+        notes.add(new Note("12"));
+        notes.add(new Note("13"));
+        notes.add(new Note("14"));
+        notes.add(new Note("15"));
+        notes.add(new Note("16"));
+        notes.add(new Note("17"));
     }
 
     private void saveNote(){
