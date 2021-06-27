@@ -1,0 +1,2 @@
+rootProject.name = "FancyUi"
+include ':app'
