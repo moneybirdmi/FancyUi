@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity
     ArrayList<Note> notes;
     Note currentNote;
     EditText textArea;
-
+    String TAG="TAG99";
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -59,5 +59,23 @@ public class MainActivity extends AppCompatActivity
         } else if(v.getId() == R.id.button_list){
             listNotes();
         }
+    }
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        Log.i(TAG, "onSaveInstanceState: ");
+        super.onSaveInstanceState(savedInstanceState);
+        try{
+            savedInstanceState.putSerializable("listNotes",notes);
+        }
+        catch(Exception ex){ }
+    }
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        Log.i(TAG, "onRestoreInstanceState: ");
+        super.onRestoreInstanceState(savedInstanceState);
+        try{
+            notes = (ArrayList<Note>) savedInstanceState.getSerializable("listNotes");
+        }
+        catch(Exception ex){ }
     }
 }

@@ -1,7 +1,8 @@
 package com.example.fancyui;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
-public class Note{
+public class Note implements Serializable {
     private String id;
     private String content;
     private Date creationDateTime;
