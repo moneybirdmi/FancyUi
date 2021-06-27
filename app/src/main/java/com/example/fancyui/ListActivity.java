@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
     ArrayList<Note> notes;
-
     /**
      * Called when the activity is first created.
      */
@@ -26,7 +25,6 @@ public class ListActivity extends AppCompatActivity {
         }
         createView();
     }
-
     private void createView() {
         ListView view = new ListView(this);
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -39,6 +37,13 @@ public class ListActivity extends AppCompatActivity {
         ArrayAdapter adapter = new NoteListAdapter(this, R.layout.item_for_note_list_adapter, notes);
         view.setAdapter(adapter);
         setContentView(view);
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("list", notes);
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 
 }

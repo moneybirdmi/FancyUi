@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity
     Note currentNote;
     EditText textArea;
     String TAG="TAG99";
+    final int REQUEST_CODE = 1;
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,14 @@ public class MainActivity extends AppCompatActivity
             currentNote.setContent(content);
         }
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                notes = (ArrayList<Note>) data.getSerializableExtra("list");
+            }
+        }
+    }
     private void newNote(){
         saveNote();
         textArea.setText("");
@@ -71,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         toast.show();
         Intent intent = new Intent(this, ListActivity.class);
         intent.putExtra("list", notes);
-        startActivity(intent);
+        startActivityForResult(intent,REQUEST_CODE);
     }
     public void buttonClick(View v){
         if(v.getId() == R.id.button_save){

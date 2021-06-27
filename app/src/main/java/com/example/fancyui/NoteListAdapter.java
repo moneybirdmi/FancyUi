@@ -40,10 +40,10 @@ public class NoteListAdapter extends ArrayAdapter<Note> {
         Log.i(TAG, "created text: " + note.getContent());
 
         if (view == null) {
-//            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            view = inflater.inflate(layout, parent, false);
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(layout, parent, false);
 
-            view = getItemView();
+//            view = getItemView();
         }
 
         TextView text = (TextView) view.findViewById(R.id.note_list_item_text);
